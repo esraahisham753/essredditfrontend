@@ -1,0 +1,97 @@
+<main class="signup-page">
+  <section class="signup-shell container">
+    <div class="row align-items-center g-4 g-xl-5">
+      <div class="col-lg-6">
+        <div class="signup-story">
+          <span class="story-kicker">Create. Compile. Connect.</span>
+          <h1>Join a community where code meets color.</h1>
+          <p>
+            Build your EssReddit profile and start sharing projects, sketches,
+            questions, and sparks from the edge of art and computer science.
+          </p>
+
+          <div class="creative-board" aria-hidden="true">
+            <div class="code-window">
+              <div class="window-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <pre><code>const idea = blend(art, code);
+idea.render("community");</code></pre>
+            </div>
+            <div class="palette-swatch swatch-orange"></div>
+            <div class="palette-swatch swatch-violet"></div>
+            <div class="palette-swatch swatch-gold"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <form class="signup-card" aria-label="Sign up form" [formGroup]="signupForm" (ngSubmit)="signup()">
+          <div class="form-heading">
+            <span class="form-eyebrow">Start your studio</span>
+            <h2>Create account</h2>
+          </div>
+
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input
+              id="username"
+              class="form-control form-control-lg"
+              type="text"
+              name="username"
+              autocomplete="username"
+              placeholder="pixel_pioneer"
+              [formControlName]="'username'"
+            />
+            @if (signupForm.get('username')?.invalid && signupForm.get('username')?.touched) {
+              <span class="input-error">Please, provide a valid username</span>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              class="form-control form-control-lg"
+              type="email"
+              name="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              [formControlName]="'email'"
+            />
+            @if (signupForm.get('email')?.invalid && signupForm.get("email")?.touched) {
+              <span class="input-error">Please, provide a valid email.</span>
+            }
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="form-label">Password</label>
+            <input
+              id="password"
+              class="form-control form-control-lg"
+              type="password"
+              name="password"
+              autocomplete="new-password"
+              placeholder="Create a strong password"
+              [formControlName]="'password'"
+            />
+            @if (signupForm.get("password")?.invalid && signupForm.get("password")?.touched) {
+              <span class="input-error">Please, provide a valid password.</span>
+            }
+          </div>
+
+          <button class="btn signup-submit w-100" type="submit">
+            Sign Up
+          </button>
+
+          <p class="signin-note">
+            Already have an account?
+            <a href="#">Login</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
