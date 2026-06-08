@@ -33,9 +33,9 @@ export class Login implements OnInit {
       password: new FormControl('', Validators.required)
     });
 
-    this.activatedRoute.params
+    this.activatedRoute.queryParams
     .subscribe(params => {
-      if (params["registered"] !== undefined && params["registered"] == true) {
+      if (params["registered"] !== undefined) {
         this.toastr.success("User registered successfully");
         this.registeredSuccessfulMessage = "Please, check your inbox for the activation email";
       }

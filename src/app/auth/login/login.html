@@ -33,7 +33,7 @@ feed.sync(username);</code></pre>
             <p>{{ registeredSuccessfulMessage }}</p>
           </div>
         }
-        
+
         <form [formGroup]="loginForm" (ngSubmit)="login()" class="auth-card" aria-label="Login form">
           <div class="form-heading">
             <span class="form-eyebrow">Welcome back</span>
@@ -76,6 +76,12 @@ feed.sync(username);</code></pre>
           <button class="btn auth-submit w-100" type="submit">
             Login
           </button>
+
+          @if (isError) {
+            <div class="login-failed">
+              <p>Login failed! Please, check your username and password and try again.</p>
+            </div>
+          }
 
           <p class="auth-note">
             New to EssReddit?
