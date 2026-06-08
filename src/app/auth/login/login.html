@@ -3,11 +3,11 @@
     <div class="row align-items-center g-4 g-xl-5">
       <div class="col-lg-6">
         <div class="auth-story">
-          <span class="story-kicker">Create. Compile. Connect.</span>
-          <h1>Join a community where code meets color.</h1>
+          <span class="story-kicker">Return. Refine. Reply.</span>
+          <h1>Step back into your creative feed.</h1>
           <p>
-            Build your EssReddit profile and start sharing projects, sketches,
-            questions, and sparks from the edge of art and computer science.
+            Log in to keep sharing projects, joining conversations, and finding
+            new sparks where art and computer science overlap.
           </p>
 
           <div class="creative-board" aria-hidden="true">
@@ -17,8 +17,8 @@
                 <span></span>
                 <span></span>
               </div>
-              <pre><code>const idea = blend(art, code);
-idea.render("community");</code></pre>
+              <pre><code>session.open("EssReddit");
+feed.sync(username);</code></pre>
             </div>
             <div class="palette-swatch swatch-orange"></div>
             <div class="palette-swatch swatch-violet"></div>
@@ -28,10 +28,16 @@ idea.render("community");</code></pre>
       </div>
 
       <div class="col-lg-6">
-        <form class="auth-card" aria-label="Sign up form" [formGroup]="signupForm" (ngSubmit)="signup()">
+        @if(registeredSuccessfulMessage.length > 0) {
+          <div class="registeredSuccess">
+            <p>{{ registeredSuccessfulMessage }}</p>
+          </div>
+        }
+        
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="auth-card" aria-label="Login form">
           <div class="form-heading">
-            <span class="form-eyebrow">Start your studio</span>
-            <h2>Create account</h2>
+            <span class="form-eyebrow">Welcome back</span>
+            <h2>Login</h2>
           </div>
 
           <div class="mb-3">
@@ -45,24 +51,8 @@ idea.render("community");</code></pre>
               placeholder="pixel_pioneer"
               [formControlName]="'username'"
             />
-            @if (signupForm.get('username')?.invalid && signupForm.get('username')?.touched) {
-              <span class="input-error">Please, provide a valid username</span>
-            }
-          </div>
-
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input
-              id="email"
-              class="form-control form-control-lg"
-              type="email"
-              name="email"
-              autocomplete="email"
-              placeholder="you@example.com"
-              [formControlName]="'email'"
-            />
-            @if (signupForm.get('email')?.invalid && signupForm.get("email")?.touched) {
-              <span class="input-error">Please, provide a valid email.</span>
+            @if(loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+              <span class="input-error" >Please, provide a valid username</span>
             }
           </div>
 
@@ -73,22 +63,23 @@ idea.render("community");</code></pre>
               class="form-control form-control-lg"
               type="password"
               name="password"
-              autocomplete="new-password"
-              placeholder="Create a strong password"
+              autocomplete="current-password"
+              placeholder="Enter your password"
               [formControlName]="'password'"
             />
-            @if (signupForm.get("password")?.invalid && signupForm.get("password")?.touched) {
-              <span class="input-error">Please, provide a valid password.</span>
+            
+            @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+              <span class="input-error">Please, provide a valid password</span>
             }
           </div>
 
           <button class="btn auth-submit w-100" type="submit">
-            Sign Up
+            Login
           </button>
 
           <p class="auth-note">
-            Already have an account?
-            <a routerLink="/login">Login</a>
+            New to EssReddit?
+            <a routerLink="/signup">Create account</a>
           </p>
         </form>
       </div>

@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { signupRequestPayload } from './signup-request.payload';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../shared/auth-service';
+import { Router, RouterLink } from "@angular/router";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './signup.html',
   styleUrl: './signup.css',
 })
@@ -13,7 +15,7 @@ export class Signup implements OnInit {
   private signupRequestPayload: signupRequestPayload;
   signupForm!: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.signupRequestPayload = {
       username: '',
       email: '',
@@ -36,8 +38,18 @@ export class Signup implements OnInit {
 
     this.authService.signup(this.signupRequestPayload)
     .subscribe({
-      next: data => console.log(data),
-      error: err => console.error(err)
+      next: data => {
+        this.router.navigate(
+          ['/login'],
+          {
+            queryParams: { registered: true }
+          }
+        )
+      },
+      error: err => {
+        console.error(err);
+        this.toastr.error('Registeration failed! Please, try again.');
+      }
     });
   };
   
