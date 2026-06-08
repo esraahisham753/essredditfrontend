@@ -43,6 +43,7 @@ export class Login implements OnInit {
   }
 
   login() {
+    this.isError = false;
     this.loginRequestPayload.username = this.loginForm.get('username')?.value;
     this.loginRequestPayload.password = this.loginForm.get('password')?.value;
 
@@ -56,7 +57,7 @@ export class Login implements OnInit {
         },
         error: err => {
           this.isError = true;
-          throw(err);
+          console.log(err);
         }
       }
     )
