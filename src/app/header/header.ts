@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Component, DOCUMENT, ElementRef, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../auth/shared/auth-service';
 import { Subject, takeUntil } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -12,30 +13,51 @@ import { Subject, takeUntil } from 'rxjs';
 export class Header implements OnInit, OnDestroy {
   isLoggedIn!: boolean;
   username!: String | null;
-  destroy$ = new Subject<void>;
+  destroy$ = new Subject<void>();
+  dropdownOpen: boolean;
 
+  constructor(
+    private authService: AuthService,
+    private elementRef: ElementRef,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platform_id: Object
+  ) {
+    this.dropdownOpen = false;
+  }
 
-  constructor(private authService: AuthService) {
-    
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  private outsideClickListener(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.dropdownOpen = false;
+    }
   }
 
   ngOnInit(): void {
     this.authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(data => this.isLoggedIn = data);
+      .subscribe((data) => (this.isLoggedIn = data));
 
     this.authService.username$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(data => this.username = data);
-    
-      this.isLoggedIn = this.authService.isLoggedIn();
-      this.username = this.authService.getUsername();
+      .subscribe((data) => (this.username = data));
+
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.username = this.authService.getUsername();
+
+    if (isPlatformBrowser(this.platform_id)) {
+      document.addEventListener('click', this.outsideClickListener);
+    }
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+
+    if (isPlatformBrowser(this.platform_id)) {
+      document.removeEventListener('click', this.outsideClickListener);
+    }
   }
-
-
 }
