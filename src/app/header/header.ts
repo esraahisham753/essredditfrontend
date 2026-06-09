@@ -1,4 +1,4 @@
-import { Component, DOCUMENT, ElementRef, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, DOCUMENT, ElementRef, HostListener, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../auth/shared/auth-service';
 import { Subject, takeUntil } from 'rxjs';
@@ -20,7 +20,8 @@ export class Header implements OnInit, OnDestroy {
     private authService: AuthService,
     private elementRef: ElementRef,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platform_id: Object
+    @Inject(PLATFORM_ID) private platform_id: Object,
+    private cdr: ChangeDetectorRef
   ) {
     this.dropdownOpen = false;
   }
@@ -32,6 +33,7 @@ export class Header implements OnInit, OnDestroy {
   private outsideClickListener = (event: MouseEvent): void => {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.dropdownOpen = false;
+      this.cdr.detectChanges();
     }
   }
 
