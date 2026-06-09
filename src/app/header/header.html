@@ -16,9 +16,15 @@
       <a href="#">Trending</a>
     </div>
 
-    <div class="header-actions">
-      <a class="btn-login" routerLink="/login">Login</a>
-      <a class="btn-signup" routerLink="/signup">Sign Up</a>
-    </div>
+    @if (!isLoggedIn) {
+      <div class="header-actions">
+        <a class="btn-login" routerLink="/login">Login</a>
+        <a class="btn-signup" routerLink="/signup">Sign Up</a>
+      </div>
+    }
+
+    @if (isLoggedIn) {
+      
+    }
   </nav>
 </header>

@@ -318,7 +318,7 @@
 
 .login-failed {
   width: min(100%, 31rem);
-  margin: 0 auto 1.25rem auto;
+  margin: 1.25rem auto 1.25rem auto;
   padding: 0.9rem 1.1rem;
   border: 1px solid rgba(220, 38, 38, 0.22);
   border-radius: 1rem;
