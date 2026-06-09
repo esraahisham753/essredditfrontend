@@ -29,7 +29,7 @@ export class Header implements OnInit, OnDestroy {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  private outsideClickListener(event: MouseEvent): void {
+  private outsideClickListener = (event: MouseEvent): void => {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.dropdownOpen = false;
     }
@@ -48,7 +48,7 @@ export class Header implements OnInit, OnDestroy {
     this.username = this.authService.getUsername();
 
     if (isPlatformBrowser(this.platform_id)) {
-      document.addEventListener('click', this.outsideClickListener);
+      this.document.addEventListener('click', this.outsideClickListener);
     }
   }
 
@@ -57,7 +57,7 @@ export class Header implements OnInit, OnDestroy {
     this.destroy$.complete();
 
     if (isPlatformBrowser(this.platform_id)) {
-      document.removeEventListener('click', this.outsideClickListener);
+      this.document.removeEventListener('click', this.outsideClickListener);
     }
   }
 }
