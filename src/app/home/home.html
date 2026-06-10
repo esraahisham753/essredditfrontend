@@ -17,22 +17,6 @@
 
       @for (post of posts; track post.postId) {
         <article class="post-card">
-          @if (post.url) {
-            <a
-              class="post-card-link"
-              [href]="post.url"
-              target="_blank"
-              rel="noopener"
-              aria-label="Open post: {{ post.postName }}"
-            ></a>
-          }
-
-          <div class="post-votes" aria-label="Vote controls">
-            <button class="vote-btn vote-up" [class.active]="post.upvote" aria-label="Upvote">▲</button>
-            <span class="vote-count">{{ post.voteCount }}</span>
-            <button class="vote-btn vote-down" [class.active]="post.downvote" aria-label="Downvote">▼</button>
-          </div>
-
           <div class="post-body">
             <div class="post-meta">
               <span class="subreddit">r/{{ post.subredditName }}</span>
@@ -45,7 +29,21 @@
 
             <div class="post-actions">
               <span class="comments">{{ post.commentCount }} comments</span>
+              @if (post.url) {
+                  <a
+                  class="post-link"
+                  [href]="post.url"
+                  target="_blank"
+                  rel="noopener"
+                >View post</a>
+              }
             </div>
+          </div>
+
+          <div class="post-votes" aria-label="Vote controls">
+            <button class="vote-btn vote-up" [class.active]="post.upvote" aria-label="Upvote">▲</button>
+            <span class="vote-count">{{ post.voteCount }}</span>
+            <button class="vote-btn vote-down" [class.active]="post.downvote" aria-label="Downvote">▼</button>
           </div>
         </article>
       }
