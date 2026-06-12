@@ -1,20 +1,12 @@
 import { Component } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
-import { PostModel } from '../shared/PostType';
-import { Post } from '../shared/post';
-import { Observable } from 'rxjs';
+import { PostTile } from '../shared/post-tile/post-tile';
+import { Sidebar } from '../shared/sidebar/sidebar';
 
 @Component({
   selector: 'app-home',
-  imports: [AsyncPipe],
+  imports: [PostTile, Sidebar],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home{
-  posts$: Observable<Array<PostModel>>;
+export class Home {}
 
-  constructor(private postService: Post) {
-    this.posts$ = postService.getPosts();
-  }
-
-}

@@ -1,0 +1,23 @@
+<section class="subreddit-panel">
+  <div class="subreddit-panel-header">
+    <div>
+      <span class="subreddit-kicker">Community Picks</span>
+      <h2>Popular subreddits</h2>
+    </div>
+    <span class="subreddit-badge">Trending</span>
+  </div>
+
+  <ul class="subreddit-list">
+    <li *ngFor="let subreddit of subreddits$ | async" class="subreddit-card">
+      <div class="subreddit-card-main">
+        <a [href]="'/r/' + subreddit.name" class="subreddit-link">r/{{ subreddit.name }}</a>
+        <p class="subreddit-description">{{ subreddit.description }}</p>
+      </div>
+      <span class="subreddit-count">{{ subreddit.numberOfPosts | number }} posts</span>
+    </li>
+  </ul>
+
+  <div class="subreddit-empty" *ngIf="(subreddits$ | async)?.length === 0">
+    No communities available yet.
+  </div>
+</section>

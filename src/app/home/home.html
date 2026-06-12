@@ -1,54 +1,11 @@
 <div class="home-shell">
-  <section class="feed-intro">
-    <div class="feed-copy">
-      <span class="feed-kicker">Top Stories</span>
-      <h1>Catch the freshest posts from EssReddit.</h1>
-      <p>Browse the latest conversations, community picks, and trending topics in one clean feed.</p>
-    </div>
-  </section>
+  <div class="home-container">
+    <main class="post-feed-column">
+      <app-post-tile></app-post-tile>
+    </main>
 
-  <main class="post-feed">
-    @let posts = posts$ | async;
-
-    @if (posts) {
-      @if (posts.length === 0) {
-        <p class="empty-state">No posts available yet. Check back soon.</p>
-      }
-
-      @for (post of posts; track post.postId) {
-        <article class="post-card">
-          <div class="post-body">
-            <div class="post-meta">
-              <span class="subreddit">r/{{ post.subredditName }}</span>
-              <span class="post-author">Posted by {{ post.username }}</span>
-              <span class="post-duration">{{ post.duration }}</span>
-            </div>
-
-            <h2 class="post-title">{{ post.postName }}</h2>
-            <p class="post-description">{{ post.description }}</p>
-
-            <div class="post-actions">
-              <span class="comments">{{ post.commentCount }} comments</span>
-              @if (post.url) {
-                  <a
-                  class="post-link"
-                  [href]="post.url"
-                  target="_blank"
-                  rel="noopener"
-                >View post</a>
-              }
-            </div>
-          </div>
-
-          <div class="post-votes" aria-label="Vote controls">
-            <button class="vote-btn vote-up" [class.active]="post.upvote" aria-label="Upvote">▲</button>
-            <span class="vote-count">{{ post.voteCount }}</span>
-            <button class="vote-btn vote-down" [class.active]="post.downvote" aria-label="Downvote">▼</button>
-          </div>
-        </article>
-      }
-    } @else {
-      <div class="loading-state">Loading posts…</div>
-    }
-  </main>
+    <aside class="sidebar-column">
+      <app-sidebar></app-sidebar>
+    </aside>
+  </div>
 </div>
