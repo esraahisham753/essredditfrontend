@@ -1,3 +1,5 @@
+@let subreddits = subreddits$ | async;
+
 <section class="subreddit-panel">
   <div class="subreddit-panel-header">
     <div>
@@ -8,7 +10,7 @@
   </div>
 
   <ul class="subreddit-list">
-    @for (subreddit of subreddits$ | async; track $index) {
+    @for (subreddit of subreddits; track $index) {
       <li class="subreddit-card">
         <div class="subreddit-card-main">
           <a [href]="'/r/' + subreddit.name" class="subreddit-link">r/{{ subreddit.name }}</a>
@@ -19,7 +21,7 @@
     }
   </ul>
 
-  @if ((subreddits$ | async)?.length === 0) {
+  @if (subreddits?.length === 0) {
     <div class="subreddit-empty">No communities available yet.</div>
   }
 </section>
