@@ -8,16 +8,18 @@
   </div>
 
   <ul class="subreddit-list">
-    <li *ngFor="let subreddit of subreddits$ | async" class="subreddit-card">
-      <div class="subreddit-card-main">
-        <a [href]="'/r/' + subreddit.name" class="subreddit-link">r/{{ subreddit.name }}</a>
-        <p class="subreddit-description">{{ subreddit.description }}</p>
-      </div>
-      <span class="subreddit-count">{{ subreddit.numberOfPosts | number }} posts</span>
-    </li>
+    @for (subreddit of subreddits$ | async; track $index) {
+      <li class="subreddit-card">
+        <div class="subreddit-card-main">
+          <a [href]="'/r/' + subreddit.name" class="subreddit-link">r/{{ subreddit.name }}</a>
+          <p class="subreddit-description">{{ subreddit.description }}</p>
+        </div>
+        <span class="subreddit-count">{{ subreddit.numberOfPosts | number }} posts</span>
+      </li>
+    }
   </ul>
 
-  <div class="subreddit-empty" *ngIf="(subreddits$ | async)?.length === 0">
-    No communities available yet.
-  </div>
+  @if ((subreddits$ | async)?.length === 0) {
+    <div class="subreddit-empty">No communities available yet.</div>
+  }
 </section>
