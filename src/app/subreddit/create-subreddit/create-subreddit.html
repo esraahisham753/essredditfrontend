@@ -1,0 +1,59 @@
+<main class="subreddit-page">
+  <section class="subreddit-shell">
+    <div class="subreddit-card">
+      <div class="subreddit-intro">
+        <span class="form-eyebrow">Build your community</span>
+        <h1>Create a subreddit</h1>
+        <p>
+          Give your subreddit a memorable name and a short description so people know what your
+          community is about.
+        </p>
+      </div>
+
+      <form
+        [formGroup]="subredditForm"
+        (ngSubmit)="onSubmit()"
+        class="subreddit-form"
+        aria-label="Create subreddit form"
+      >
+        <div class="form-group">
+          <label for="name" class="form-label">Name</label>
+          <input
+            id="name"
+            type="text"
+            class="form-control"
+            [formControlName]="'name'"
+            autocomplete="off"
+            placeholder="community_name"
+          />
+          @if (subredditForm.get('name')?.invalid && subredditForm.get('name')?.touched) {
+            <span class="input-error"> Please enter a subreddit name. </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            id="description"
+            rows="4"
+            class="form-control textarea-control"
+            [formControlName]="'description'"
+            placeholder="A short summary of what this community is about."
+          ></textarea>
+          @if (
+            subredditForm.get('description')?.invalid && subredditForm.get('description')?.touched
+          ) {
+            <span class="input-error"> Please enter a description. </span>
+          }
+        </div>
+
+        <div class="form-actions">
+          <button class="btn submit-btn" type="submit" [disabled]="subredditForm.invalid">
+            Create subreddit
+          </button>
+          <button class="btn discard-btn" type="button" (click)="onDiscard()">Discard</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>

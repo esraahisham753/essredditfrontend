@@ -7,20 +7,24 @@
 </section>
 
 <section class="actions-section">
-  <div class="action-group">
-    <h2 class="action-heading">Share Your Thoughts</h2>
-    <button class="action-btn action-btn-primary">
-      <span class="btn-icon">✎</span>
-      Create Post
-    </button>
-  </div>
+  <div class="action-panel">
+    <img src="/images/sidebar.png" alt="Sidebar preview" class="action-panel-image" />
 
-  <div class="action-group">
-    <h2 class="action-heading">Build Community</h2>
-    <button class="action-btn action-btn-secondary">
-      <span class="btn-icon">+</span>
-      Create Subreddit
-    </button>
+    <div class="action-panel-copy">
+      <h2 class="action-heading">Start sharing in your communities</h2>
+      <p>Post and grow subreddits from one spot.</p>
+    </div>
+
+    <div class="action-buttons">
+      <button class="action-btn action-btn-primary" (click)="goToCreatePost()">
+        <span class="btn-icon">✎</span>
+        Create Post
+      </button>
+      <button class="action-btn action-btn-secondary" (click)="goToCreateSubreddit()">
+        <span class="btn-icon">+</span>
+        Create Subreddit
+      </button>
+    </div>
   </div>
 </section>
 

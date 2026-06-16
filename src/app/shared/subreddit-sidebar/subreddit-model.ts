@@ -1,6 +1,6 @@
 export interface SubredditModel {
-    id: number,
+    id?: number,
     name: String,
     description: String,
-    numberOfPosts: number 
+    numberOfPosts?: number 
 };

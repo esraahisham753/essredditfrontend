@@ -107,6 +107,22 @@
   font-size: 0.95rem;
 }
 
+.subreddit-view-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 1rem 0 0;
+  color: #7c3aed;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.subreddit-view-all:hover,
+.subreddit-view-all:focus-visible {
+  text-decoration: underline;
+}
+
 @media (max-width: 620px) {
   .subreddit-panel {
     padding: 1.25rem;

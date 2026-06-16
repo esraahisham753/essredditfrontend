@@ -1,0 +1,94 @@
+@let subreddits = subreddits$ | async;
+
+<main class="create-post-page">
+  <section class="create-post-shell">
+    <div class="create-post-card">
+      <div class="create-post-intro">
+        <span class="form-eyebrow">Share something new</span>
+        <h1>Create a post</h1>
+        <p>
+          Choose the right community, add a headline, and share a link or a short story with the
+          community.
+        </p>
+      </div>
+
+      <form
+        [formGroup]="createPostForm"
+        (ngSubmit)="onSubmit()"
+        class="create-post-form"
+        aria-label="Create post form"
+      >
+        <div class="form-group">
+          <label for="postName" class="form-label">Post title</label>
+          <input
+            id="postName"
+            type="text"
+            class="form-control"
+            [formControlName]="'postName'"
+            autocomplete="off"
+            placeholder="Enter a title for your post"
+          />
+          @if (createPostForm.get('postName')?.invalid && createPostForm.get('postName')?.touched) {
+            <span class="input-error"> Please enter a post title. </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="subredditName" class="form-label">Community</label>
+          <select
+            id="subredditName"
+            class="form-control"
+            [formControlName]="'subredditName'"
+          >
+            <option value="" disabled selected>Select a community</option>
+            @if (subreddits) {
+              @if (subreddits.length > 0) {
+                @for (subreddit of subreddits; track $index) {
+                  <option [value]="subreddit.name">{{ subreddit.name }}</option>
+                }
+              } @else {
+                <option value="" disabled>No communities available</option>
+              }
+            }
+          </select>
+          @if (createPostForm.get('subredditName')?.invalid && createPostForm.get('subredditName')?.touched) {
+            <span class="input-error"> Please select a community. </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label">Description</label>
+          <editor
+            id="description"
+            [init]="init"
+            licenseKey="gpl"
+            [apiKey]="apiKey"
+            class="editor-control"
+            [formControlName]="'description'"
+          ></editor>
+          @if (createPostForm.get('description')?.invalid && createPostForm.get('description')?.touched) {
+            <span class="input-error"> Please enter a description. </span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="url" class="form-label">URL (optional)</label>
+          <input
+            id="url"
+            type="url"
+            class="form-control"
+            [formControlName]="'url'"
+            autocomplete="off"
+            placeholder="https://example.com"
+          />
+        </div>
+
+        <div class="form-actions">
+          <button class="btn submit-btn" type="submit" [disabled]="createPostForm.invalid">
+            Create post
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>

@@ -15,7 +15,7 @@
         </div>
 
         <h2 class="post-title">{{ post.postName }}</h2>
-        <p class="post-description">{{ post.description }}</p>
+        <p class="post-description" [innerHTML]="post.description | safeHTML"></p>
 
         <div class="post-actions">
           <span class="comments">{{ post.commentCount }} comments</span>

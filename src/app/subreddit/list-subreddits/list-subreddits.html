@@ -1,0 +1,35 @@
+@let subreddits = subreddits$ | async;
+
+<main class="subreddits-page">
+  <section class="subreddits-container">
+    <div class="subreddits-panel">
+      <div class="panel-header">
+        <span class="panel-kicker">Community directory</span>
+        <h1>Browse subreddits</h1>
+        <p>Explore every community by name and jump directly to the one you want.</p>
+      </div>
+
+      @if (subreddits !== null && subreddits.length > 0) {
+      <div class="subreddits-card">
+        <ul class="subreddit-list">
+            @for (subreddit of subreddits.reverse(); track $index) {
+              <li class="subreddit-item">
+                <a [routerLink]="['/subreddits', subreddit.id ?? subreddit.name]" class="subreddit-link">
+                  r/{{ subreddit.name }}
+                </a>
+              </li>
+            }
+        </ul>
+      </div>
+    }@else {
+            <p class="subreddit-empty">No subreddits available yet.</p>
+    }
+    </div>
+
+    <aside class="subreddits-aside">
+      <div class="sidebar-stack">
+        <app-sidebar></app-sidebar>
+      </div>
+    </aside>
+  </section>
+</main>
