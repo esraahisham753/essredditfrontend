@@ -21,4 +21,8 @@ export class Post {
   getPostById(id: number): Observable<PostModel> {
     return this.httpClient.get<PostModel>(`http://localhost:8080/api/posts/${id}`);
   }
+
+  getPostsByUsername(username: String): Observable<PostModel[]> {
+    return this.httpClient.get<PostModel[]>(`http://localhost:8080/posts/${username}`);
+  }
 }

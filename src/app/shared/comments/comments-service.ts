@@ -18,4 +18,8 @@ export class CommentsService {
   createComment(commentPayload: CommentPayload) : Observable<CommentDto>{
     return this.httpClient.post<CommentDto>('http://localhost:8080/api/comments', commentPayload);
   }
+
+  getCommentByUsername(username: String): Observable<CommentModel[]> {
+    return this.httpClient.get<CommentModel[]>(`http://localhost:8080/${username}/comments`);
+  }
 }

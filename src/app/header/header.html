@@ -61,7 +61,7 @@
           <div class="user-dropdown" role="menu">
             <a
               class="dropdown-item"
-              routerLink="{{'user/' + username}}"
+              [routerLink]="['/users', username]"
               role="menuitem"
               (click)="dropdownOpen = false"
             >
