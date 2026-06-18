@@ -7,6 +7,7 @@ import { CreatePost } from './post/create-post/create-post';
 import { ListSubreddits } from './subreddit/list-subreddits/list-subreddits';
 import { ViewPost } from './post/view-post/view-post';
 import { ViewSubreddit } from './subreddit/view-subreddit/view-subreddit';
+import { UserProfile } from './user-profile/user-profile';
 
 export const routes: Routes = [
     { path: '',  component: Home},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     { path: 'create-post', component: CreatePost },
     { path: 'subreddits', component: ListSubreddits },
     { path: 'posts/:id', component: ViewPost },
-    { path: 'subreddits/:name', component: ViewSubreddit }
+    { path: 'subreddits/:name', component: ViewSubreddit },
+    { path: 'users/:username', component: UserProfile }
 ];

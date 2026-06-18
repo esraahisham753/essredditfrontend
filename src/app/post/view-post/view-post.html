@@ -1,1 +1,81 @@
-<p>view-post works!</p>
+@let post = post$ | async;
+
+<main class="view-post-page">
+  <div class="view-post-shell">
+    <article class="post-card">
+      <div class="post-main">
+        <div class="post-meta">
+          <a class="subreddit-pill" [routerLink]="['/subreddits', post?.subredditName]"
+            >r/{{ post?.subredditName }}</a
+          >
+
+          <span class="meta-sep" aria-hidden="true">·</span>
+
+          <span class="meta-item">
+            Posted by
+            <a class="username-link" [routerLink]="['/users', post?.username]">{{
+              post?.username
+            }}</a>
+          </span>
+
+          <span class="meta-sep" aria-hidden="true">·</span>
+
+          <span class="meta-item meta-duration">{{ post?.duration }}</span>
+        </div>
+
+        <h1 class="post-title">{{ post?.postName }}</h1>
+
+        @if (post) {
+          <div class="post-description" [innerHTML]="post?.description | safeHTML"></div>
+        }
+
+        <div class="post-stats">
+          <span class="stat-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="18 15 12 9 6 15" />
+            </svg>
+            {{ post?.voteCount }} votes
+          </span>
+          <span class="stat-item">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            {{ post?.commentCount }} comments
+          </span>
+        </div>
+      </div>
+
+      <div class="post-vote-panel">
+        @if (post) {
+          <app-post-vote [post]="post"></app-post-vote>
+        }
+      </div>
+    </article>
+
+    @if (post) {
+      <app-comments [post]="post"></app-comments>
+    }
+  </div>
+</main>
