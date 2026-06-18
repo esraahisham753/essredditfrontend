@@ -1,6 +1,6 @@
 import { Component, input, OnInit } from '@angular/core';
 import { CommentsService } from './comments-service';
-import { Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { CommentModel } from './comment-model';
 import { AsyncPipe } from '@angular/common';
 import { PostModel } from '../PostType';
@@ -15,7 +15,7 @@ import { AuthService } from '../../auth/shared/auth-service';
   styleUrl: './comments.css',
 })
 export class Comments implements OnInit {
-  comments$!: Observable<Array<CommentModel>>;
+  comments$ = new BehaviorSubject<CommentModel[]>([]);
   post = input.required<PostModel>();
   createCommentForm!: FormGroup;
   loggedIn: boolean;
@@ -33,7 +33,11 @@ export class Comments implements OnInit {
   }
 
   ngOnInit(): void {
-    this.comments$ = this.commentsService.getCommentByPost(this.post().postId);
+    this.commentsService.getCommentByPost(this.post().postId)
+    .subscribe({
+      next: data => this.comments$.next(data),
+      error: err => console.error(err)
+    });
 
     this.createCommentForm = new FormGroup({
       text: new FormControl('', Validators.required),
@@ -46,21 +50,16 @@ export class Comments implements OnInit {
       postId: this.post().postId
     };
 
-    this.comments$.pipe(
-      switchMap((comments) => [...comments, this.mapCommentPayloadToCommentModel(this.commentPayload)]),
-    );
+    const previous: CommentModel[] = this.comments$.getValue();
+    this.comments$.next([...previous, this.mapCommentPayloadToCommentModel(this.commentPayload)]);
+    this.createCommentForm.reset();
 
     this.commentsService.createComment(this.commentPayload).subscribe({
       next: data => console.log(data),
       error: err => {
         console.error(err);
-        this.comments$.pipe(
-          switchMap(comments => {
-            const commentId = this.mapCommentPayloadToCommentModel(this.commentPayload).id;
-            
-            return comments.filter(comment => comment.id !== commentId);
-          })
-        )
+        const previous = this.comments$.getValue();
+        this.comments$.next(previous.filter(comment => comment !== this.mapCommentPayloadToCommentModel(this.commentPayload) ));
       }
     });
   }
