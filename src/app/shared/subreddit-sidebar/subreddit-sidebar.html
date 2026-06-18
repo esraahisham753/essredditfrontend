@@ -13,7 +13,7 @@
     @for (subreddit of subreddits?.slice(0, 3); track $index) {
       <li class="subreddit-card">
         <div class="subreddit-card-main">
-          <a [href]="'/r/' + subreddit.name" class="subreddit-link">r/{{ subreddit.name }}</a>
+          <a routerLink="{{ 'subreddits/' + subreddit.name }}" class="subreddit-link">r/{{ subreddit.name }}</a>
           <p class="subreddit-description">{{ subreddit.description }}</p>
         </div>
         <span class="subreddit-count">{{ subreddit.numberOfPosts | number }} posts</span>

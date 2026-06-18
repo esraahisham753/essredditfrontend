@@ -1,0 +1,5 @@
+<div class="post-votes" aria-label="Vote controls">
+  <button class="vote-btn vote-up" [class.active]="post().upvote" aria-label="Upvote" (click)="upvote()">▲</button>
+  <span class="vote-count">{{ post().voteCount }}</span>
+  <button class="vote-btn vote-down" [class.active]="post().downvote" aria-label="Downvote" (click)="downvote()">▼</button>
+</div>

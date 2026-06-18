@@ -1,0 +1,46 @@
+
+.post-votes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centres arrows + count horizontally */
+  gap: 0.5rem;
+  min-width: 4rem;
+  padding: 0.9rem 0.55rem;
+  border-radius: 1.35rem;
+  background: rgba(243, 244, 255, 0.92);
+  flex-shrink: 0;
+}
+
+.vote-btn {
+  width: 2.8rem;
+  height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 1rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 180ms ease, color 180ms ease, background-color 180ms ease;
+}
+
+.vote-btn:hover,
+.vote-btn:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 69, 0, 0.08);
+}
+
+.vote-btn.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff4500, #7c3aed);
+}
+
+.vote-count {
+  font-weight: 800;
+  font-size: 1rem;
+  color: #111827;
+  text-align: center;
+  width: 100%;          /* stretches to pill width so text-align centres it */
+}

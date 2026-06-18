@@ -1,0 +1,61 @@
+@let comments = comments$ | async;
+
+<section class="comments-shell">
+  <div class="comments-header">
+    <h2 class="comments-heading">Comments</h2>
+    <p class="comments-subtitle">Read what others are saying and add your own thoughts.</p>
+  </div>
+
+  @if (comments) {
+    <div>
+      @if (comments.length) {
+        <ng-container>
+          @for (comment of comments; track comment.id) {
+            <article class="comment-item">
+              <div class="comment-avatar" aria-hidden="true">
+                {{ comment.username?.charAt(0)?.toUpperCase() }}
+              </div>
+              <div class="comment-content">
+                <div class="comment-meta">
+                  <span class="comment-username">{{ comment.username || 'Anonymous' }}</span>
+                  <span class="comment-duration">{{ comment.duration }}</span>
+                </div>
+                <p class="comment-text">{{ comment.text }}</p>
+              </div>
+            </article>
+          }
+        </ng-container>
+      } @else {
+        <p class="comments-empty">No comments yet. Be the first to post one.</p>
+      }
+    </div>
+  } @else {
+    <p class="comments-empty">Loading comments…</p>
+  }
+
+  @if (loggedIn) {
+    <form
+      [formGroup]="createCommentForm"
+      (ngSubmit)="submitComment(createCommentForm.value)"
+      class="comment-form"
+    >
+      <label class="form-label" for="commentText">Add a comment</label>
+      <div class="comment-form-row">
+        <input
+          id="commentText"
+          type="text"
+          formControlName="text"
+          class="form-control comment-input"
+          placeholder="Write a comment..."
+        />
+        <button
+          type="submit"
+          class="auth-submit comment-submit"
+          [disabled]="createCommentForm.invalid"
+        >
+          Post
+        </button>
+      </div>
+    </form>
+  }
+</section>
