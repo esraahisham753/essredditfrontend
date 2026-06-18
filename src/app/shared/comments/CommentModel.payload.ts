@@ -1,3 +1,4 @@
 export interface CommentPayload {
-    text: String
+    text: String,
+    postId: number
 };

@@ -36,7 +36,7 @@
   @if (loggedIn) {
     <form
       [formGroup]="createCommentForm"
-      (ngSubmit)="submitComment(createCommentForm.value)"
+      (ngSubmit)="submitComment()"
       class="comment-form"
     >
       <label class="form-label" for="commentText">Add a comment</label>

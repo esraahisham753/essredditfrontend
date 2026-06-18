@@ -19,12 +19,17 @@ export class Comments implements OnInit {
   post = input.required<PostModel>();
   createCommentForm!: FormGroup;
   loggedIn: boolean;
+  commentPayload: CommentPayload;
 
   constructor(
     private commentsService: CommentsService,
     private authService: AuthService,
   ) {
     this.loggedIn = authService.isLoggedIn();
+    this.commentPayload = {
+      text: '',
+      postId: 0
+    };
   }
 
   ngOnInit(): void {
@@ -35,18 +40,23 @@ export class Comments implements OnInit {
     });
   }
 
-  submitComment(commentPayload: CommentPayload) {
+  submitComment() {
+    this.commentPayload = {
+      text: this.createCommentForm.get('text')?.value,
+      postId: this.post().postId
+    };
+
     this.comments$.pipe(
-      switchMap((comments) => [...comments, this.mapCommentPayloadToCommentModel(commentPayload)]),
+      switchMap((comments) => [...comments, this.mapCommentPayloadToCommentModel(this.commentPayload)]),
     );
 
-    this.commentsService.createComment(commentPayload).subscribe({
+    this.commentsService.createComment(this.commentPayload).subscribe({
       next: data => console.log(data),
       error: err => {
         console.error(err);
         this.comments$.pipe(
           switchMap(comments => {
-            const commentId = this.mapCommentPayloadToCommentModel(commentPayload).id;
+            const commentId = this.mapCommentPayloadToCommentModel(this.commentPayload).id;
             
             return comments.filter(comment => comment.id !== commentId);
           })
@@ -57,7 +67,7 @@ export class Comments implements OnInit {
 
   mapCommentPayloadToCommentModel(commentPayload: CommentPayload): CommentModel {
     return {
-      postId: this.post().postId,
+      postId: commentPayload.postId,
       username: this.authService.getUsername(),
       text: commentPayload.text,
       duration: 'moments ago',
