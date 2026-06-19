@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { PostModel } from '../../shared/PostType';
 
 @Component({
   selector: 'app-view-subreddit',
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './view-subreddit.html',
   styleUrl: './view-subreddit.css',
 })
-export class ViewSubreddit {}
+export class ViewSubreddit {
+  posts = input.required<PostModel[]>();
+}

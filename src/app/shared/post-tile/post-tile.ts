@@ -1,23 +1,14 @@
 import { Component, input, OnInit } from '@angular/core';
 import { PostModel } from '../PostType';
-import { Post } from '../post';
-import { Observable } from 'rxjs';
 import { SafeHTMLPipe } from '../SafeHTMLPipe';
 import { PostVote } from "../post-vote/post-vote";
-import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-post-tile',
-  imports: [SafeHTMLPipe, PostVote, RouterLink],
+  imports: [SafeHTMLPipe, PostVote],
   templateUrl: './post-tile.html',
   styleUrl: './post-tile.css',
 })
-export class PostTile implements OnInit{
+export class PostTile{
   posts = input.required<PostModel[]>();
-  
-  ngOnInit(): void {
-    console.log("posts", this.posts());
-  }
-  
-
 }

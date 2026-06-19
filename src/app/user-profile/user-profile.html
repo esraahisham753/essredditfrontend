@@ -15,53 +15,90 @@
       </div>
     </section>
 
-    <div class="profile-content">
-      <section class="profile-section">
-        <div class="section-heading">
-          <h2>Posts</h2>
-          <p class="section-subtitle">Everything {{ username() }} has posted.</p>
-        </div>
-
+    <div class="profile-tabs" role="tablist" aria-label="Profile content">
+      <button
+        type="button"
+        role="tab"
+        class="profile-tab"
+        [class.active]="activeTab() === 'posts'"
+        [attr.aria-selected]="activeTab() === 'posts'"
+        (click)="setTab('posts')"
+      >
+        Posts
         @if (posts) {
-          <app-post-tile [posts]="posts"></app-post-tile>
-        } @else {
-          <p class="profile-empty">Loading posts…</p>
+          <span class="tab-count">{{ posts.length }}</span>
         }
-      </section>
-
-      <section class="profile-section">
-        <div class="section-heading">
-          <h2>Comments</h2>
-          <p class="section-subtitle">Recent comments from {{ username() }}.</p>
-        </div>
-
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="profile-tab"
+        [class.active]="activeTab() === 'comments'"
+        [attr.aria-selected]="activeTab() === 'comments'"
+        (click)="setTab('comments')"
+      >
+        Comments
         @if (comments) {
-          @if (comments.length) {
-            <ul class="profile-comment-list">
-              @for (comment of comments; track comment.id) {
-                <li class="profile-comment-item">
-                  <a class="profile-comment-link" [routerLink]="['/posts', comment.postId]">
-                    <div class="comment-avatar" aria-hidden="true">
-                      {{ comment.username?.charAt(0)?.toUpperCase() }}
-                    </div>
-                    <div class="comment-content">
-                      <div class="comment-meta">
-                        <span class="comment-username">{{ comment.username || 'Anonymous' }}</span>
-                        <span class="comment-duration">{{ comment.duration }}</span>
-                      </div>
-                      <p class="comment-text">{{ comment.text }}</p>
-                    </div>
-                  </a>
-                </li>
-              }
-            </ul>
-          } @else {
-            <p class="profile-empty">No comments yet.</p>
-          }
-        } @else {
-          <p class="profile-empty">Loading comments…</p>
+          <span class="tab-count">{{ comments.length }}</span>
         }
-      </section>
+      </button>
+    </div>
+
+    <div class="profile-content">
+      @if (activeTab() === 'posts') {
+        <section class="profile-section" role="tabpanel">
+          <div class="section-heading">
+            <h2>Posts</h2>
+            <p class="section-subtitle">Everything {{ username() }} has posted.</p>
+          </div>
+
+          @if (posts) {
+            @if (posts.length) {
+              <app-post-tile [posts]="posts"></app-post-tile>
+            } @else {
+              <p class="profile-empty">No posts yet.</p>
+            }
+          } @else {
+            <p class="profile-empty">Loading posts…</p>
+          }
+        </section>
+      }
+
+      @if (activeTab() === 'comments') {
+        <section class="profile-section" role="tabpanel">
+          <div class="section-heading">
+            <h2>Comments</h2>
+            <p class="section-subtitle">Recent comments from {{ username() }}.</p>
+          </div>
+
+          @if (comments) {
+            @if (comments.length) {
+              <ul class="profile-comment-list">
+                @for (comment of comments; track comment.id) {
+                  <li class="profile-comment-item">
+                    <a class="profile-comment-link" [routerLink]="['/posts', comment.postId]">
+                      <div class="comment-avatar" aria-hidden="true">
+                        {{ comment.username?.charAt(0)?.toUpperCase() }}
+                      </div>
+                      <div class="comment-content">
+                        <div class="comment-meta">
+                          <span class="comment-username">{{ comment.username || 'Anonymous' }}</span>
+                          <span class="comment-duration">{{ comment.duration }}</span>
+                        </div>
+                        <p class="comment-text">{{ comment.text }}</p>
+                      </div>
+                    </a>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <p class="profile-empty">No comments yet.</p>
+            }
+          } @else {
+            <p class="profile-empty">Loading comments…</p>
+          }
+        </section>
+      }
     </div>
   </div>
 </main>
