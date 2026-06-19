@@ -2,10 +2,11 @@ import { Component, input, OnInit } from '@angular/core';
 import { PostModel } from '../../shared/PostType';
 import { Observable } from 'rxjs';
 import { Post } from '../../shared/post';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-view-subreddit',
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './view-subreddit.html',
   styleUrl: './view-subreddit.css',
 })
