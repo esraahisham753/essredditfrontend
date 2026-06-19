@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { PostModel } from '../PostType';
 import { Post } from '../post';
 import { Observable } from 'rxjs';
@@ -15,8 +15,5 @@ import { RouterLink } from "@angular/router";
 export class PostTile {
   posts = input.required<PostModel[]>();
 
-  constructor() {
-    
-  }
 
 }
