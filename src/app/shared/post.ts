@@ -23,6 +23,6 @@ export class Post {
   }
 
   getPostsByUsername(username: String): Observable<PostModel[]> {
-    return this.httpClient.get<PostModel[]>(`http://localhost:8080/posts/${username}`);
+    return this.httpClient.get<PostModel[]>(`http://localhost:8080/user/${username}/comments`);
   }
 }

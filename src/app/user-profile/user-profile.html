@@ -1,4 +1,67 @@
 @let posts = posts$ | async;
 @let comments = comments$ | async;
 
-<p>user-profile works!</p>
+<main class="profile-page">
+  <div class="profile-shell">
+    <section class="profile-header">
+      <div class="profile-avatar" aria-hidden="true">
+        <span class="avatar-fallback">{{ username().charAt(0).toUpperCase() }}</span>
+      </div>
+
+      <div class="profile-info">
+        <span class="profile-kicker">Member profile</span>
+        <h1 class="profile-username">{{ username() }}</h1>
+        <p class="profile-subtitle">Posts and comments shared by this user.</p>
+      </div>
+    </section>
+
+    <div class="profile-content">
+      <section class="profile-section">
+        <div class="section-heading">
+          <h2>Posts</h2>
+          <p class="section-subtitle">Everything {{ username() }} has posted.</p>
+        </div>
+
+        @if (posts) {
+          <app-post-tile [posts]="posts"></app-post-tile>
+        } @else {
+          <p class="profile-empty">Loading posts…</p>
+        }
+      </section>
+
+      <section class="profile-section">
+        <div class="section-heading">
+          <h2>Comments</h2>
+          <p class="section-subtitle">Recent comments from {{ username() }}.</p>
+        </div>
+
+        @if (comments) {
+          @if (comments.length) {
+            <ul class="profile-comment-list">
+              @for (comment of comments; track comment.id) {
+                <li class="profile-comment-item">
+                  <a class="profile-comment-link" [routerLink]="['/posts', comment.postId]">
+                    <div class="comment-avatar" aria-hidden="true">
+                      {{ comment.username?.charAt(0)?.toUpperCase() }}
+                    </div>
+                    <div class="comment-content">
+                      <div class="comment-meta">
+                        <span class="comment-username">{{ comment.username || 'Anonymous' }}</span>
+                        <span class="comment-duration">{{ comment.duration }}</span>
+                      </div>
+                      <p class="comment-text">{{ comment.text }}</p>
+                    </div>
+                  </a>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="profile-empty">No comments yet.</p>
+          }
+        } @else {
+          <p class="profile-empty">Loading comments…</p>
+        }
+      </section>
+    </div>
+  </div>
+</main>

@@ -20,6 +20,6 @@ export class CommentsService {
   }
 
   getCommentByUsername(username: String): Observable<CommentModel[]> {
-    return this.httpClient.get<CommentModel[]>(`http://localhost:8080/${username}/comments`);
+    return this.httpClient.get<CommentModel[]>(`http://localhost:8080/user/${username}/comments`);
   }
 }
