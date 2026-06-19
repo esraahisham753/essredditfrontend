@@ -12,8 +12,12 @@ import { RouterLink } from "@angular/router";
   templateUrl: './post-tile.html',
   styleUrl: './post-tile.css',
 })
-export class PostTile {
+export class PostTile implements OnInit{
   posts = input.required<PostModel[]>();
-
+  
+  ngOnInit(): void {
+    console.log("posts", this.posts());
+  }
+  
 
 }
