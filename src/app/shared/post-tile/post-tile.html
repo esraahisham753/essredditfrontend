@@ -1,11 +1,9 @@
-@let posts = posts$ | async;
-
-@if (posts) {
-  @if (posts.length === 0) {
+@if (posts()) {
+  @if (posts().length === 0) {
     <p class="empty-state">No posts available yet. Check back soon.</p>
   }
 
-  @for (post of posts; track post.postId) {
+  @for (post of posts(); track post.postId) {
     <article class="post-card">
       <div class="post-body">
         <div class="post-meta">

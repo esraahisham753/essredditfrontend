@@ -1,7 +1,11 @@
+@let posts = posts$ | async;
+
 <div class="home-shell">
   <div class="home-container">
     <main class="post-feed-column">
-      <app-post-tile></app-post-tile>
+      @if(posts) {
+        <app-post-tile [posts]="posts"></app-post-tile>
+      }
     </main>
 
     <aside class="sidebar-column">

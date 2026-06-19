@@ -5,11 +5,10 @@ import { CommentsService } from '../shared/comments/comments-service';
 import { AuthService } from '../auth/shared/auth-service';
 import { PostModel } from '../shared/PostType';
 import { Post } from '../shared/post';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [AsyncPipe],
+  imports: [],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
 })
