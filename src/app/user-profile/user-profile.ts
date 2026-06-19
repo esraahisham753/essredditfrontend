@@ -16,13 +16,14 @@ import { AsyncPipe } from '@angular/common';
 export class UserProfile {
   comments$!: Observable<CommentModel[]>;
   posts$!: Observable<PostModel[]>;
+  username: String | null;
 
   constructor(private commentsService: CommentsService, private authService: AuthService, private postService: Post) {
-    const username = authService.getUsername();
+    this.username = authService.getUsername();
     
-    if (username) {
-      this.comments$ = commentsService.getCommentByUsername(username);
-      this.posts$ = postService.getPostsByUsername(username);
+    if (this.username) {
+      this.comments$ = commentsService.getCommentByUsername(this.username);
+      this.posts$ = postService.getPostsByUsername(this.username);
     }
   }
 }
