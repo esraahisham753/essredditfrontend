@@ -27,6 +27,6 @@ export class Post {
   }
 
   getPostsBySubredditName(subredditName: String) : Observable<PostModel[]> {
-    return this.httpClient.get<PostModel[]>(`http://localhost:8080/api/subreddits/${subredditName}/posts`);
+    return this.httpClient.get<PostModel[]>(`http://localhost:8080/api/subreddits/${encodeURIComponent(subredditName as string)}/posts`);
   }
 }

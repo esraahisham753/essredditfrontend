@@ -14,7 +14,7 @@
         <ul class="subreddit-list">
             @for (subreddit of subreddits.reverse(); track $index) {
               <li class="subreddit-item">
-                <a [routerLink]="['/subreddits', subreddit.id ?? subreddit.name]" class="subreddit-link">
+                <a [routerLink]="['/subreddits', subreddit.name]" class="subreddit-link">
                   r/{{ subreddit.name }}
                 </a>
               </li>

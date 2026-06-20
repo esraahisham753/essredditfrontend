@@ -19,7 +19,21 @@ export class SafeHTMLPipe implements PipeTransform {
     }
 
     transform(value: String): SafeHtml {
-        const cleanHTML = this.purifier.sanitize("" + value);
+        let cleanHTML = this.purifier.sanitize("" + value);
+
+        if (typeof window !== "undefined") {
+            const container = document.createElement("div");
+            container.innerHTML = cleanHTML;
+
+            container.querySelectorAll('img').forEach(img => {
+                img.removeAttribute("width");
+                img.removeAttribute("height");
+                img.style.removeProperty("width");
+                img.style.removeProperty("height");
+            });
+
+            cleanHTML = container.innerHTML;
+        }
         
         return this.sanitizer.bypassSecurityTrustHtml(cleanHTML);
     }

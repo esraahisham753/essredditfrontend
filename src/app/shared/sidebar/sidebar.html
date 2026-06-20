@@ -6,26 +6,28 @@
   </div>
 </section>
 
-<section class="actions-section">
-  <div class="action-panel">
-    <img src="/images/sidebar.png" alt="Sidebar preview" class="action-panel-image" />
+@if (isLoggedIn) {
+  <section class="actions-section">
+    <div class="action-panel">
+      <img src="/images/sidebar.png" alt="Sidebar preview" class="action-panel-image" />
 
-    <div class="action-panel-copy">
-      <h2 class="action-heading">Start sharing in your communities</h2>
-      <p>Post and grow subreddits from one spot.</p>
-    </div>
+      <div class="action-panel-copy">
+        <h2 class="action-heading">Start sharing in your communities</h2>
+        <p>Post and grow subreddits from one spot.</p>
+      </div>
 
-    <div class="action-buttons">
-      <button class="action-btn action-btn-primary" (click)="goToCreatePost()">
-        <span class="btn-icon">✎</span>
-        Create Post
-      </button>
-      <button class="action-btn action-btn-secondary" (click)="goToCreateSubreddit()">
-        <span class="btn-icon">+</span>
-        Create Subreddit
-      </button>
+      <div class="action-buttons">
+        <button class="action-btn action-btn-primary" (click)="goToCreatePost()">
+          <span class="btn-icon">✎</span>
+          Create Post
+        </button>
+        <button class="action-btn action-btn-secondary" (click)="goToCreateSubreddit()">
+          <span class="btn-icon">+</span>
+          Create Subreddit
+        </button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+}
 
 <app-subreddit-sidebar></app-subreddit-sidebar>

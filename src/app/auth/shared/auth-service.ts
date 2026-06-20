@@ -7,6 +7,7 @@ import { LoginRequestPayload } from '../login/login-request.payload';
 import { loginResponsePayload } from '../login/login-response.payload';
 import { RefreshTokenRequestPayload } from './refresh-token.payload';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class AuthService {
 
   private refreshTokenRequestPayload!: RefreshTokenRequestPayload;
 
-  constructor(private httpClient: HttpClient, private localStorage: LocalStorageService) {
+  constructor(private httpClient: HttpClient, private localStorage: LocalStorageService, private router: Router) {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
     this.usernameSubject = new BehaviorSubject<String | null>(this.getUsername());
     this.isLoggedIn$ = this.loggedInSubject.asObservable();
@@ -100,5 +101,10 @@ export class AuthService {
     this.localStorage.clear("expiresat");
     this.localStorage.clear("refreshtoken");
     this.localStorage.clear("username");
+
+    this.loggedInSubject.next(false);
+    this.usernameSubject.next(null);
+
+    this.router.navigateByUrl("/");
   }
 }
