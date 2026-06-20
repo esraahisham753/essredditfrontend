@@ -2,14 +2,14 @@
 
 <div class="home-shell">
   <div class="home-container">
+    <aside class="sidebar-column">
+      <app-sidebar></app-sidebar>
+    </aside>
+
     <main class="post-feed-column">
       @if(posts) {
         <app-post-tile [posts]="posts"></app-post-tile>
       }
     </main>
-
-    <aside class="sidebar-column">
-      <app-sidebar></app-sidebar>
-    </aside>
   </div>
 </div>

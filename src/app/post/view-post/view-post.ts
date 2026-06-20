@@ -7,10 +7,11 @@ import { Comments } from '../../shared/comments/comments';
 import { Observable } from 'rxjs';
 import { Post } from '../../shared/post';
 import { AsyncPipe } from '@angular/common';
+import { Sidebar } from '../../shared/sidebar/sidebar';
 
 @Component({
   selector: 'app-view-post',
-  imports: [RouterLink, SafeHTMLPipe, PostVote, Comments, AsyncPipe],
+  imports: [RouterLink, SafeHTMLPipe, PostVote, Comments, AsyncPipe, Sidebar],
   templateUrl: './view-post.html',
   styleUrl: './view-post.css',
 })

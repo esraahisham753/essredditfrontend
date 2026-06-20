@@ -7,12 +7,13 @@ import { Post } from '../shared/post';
 import { AsyncPipe } from '@angular/common';
 import { PostTile } from '../shared/post-tile/post-tile';
 import { RouterLink } from '@angular/router';
+import { Sidebar } from '../shared/sidebar/sidebar';
 
 type ProfileTab = 'posts' | 'comments';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [AsyncPipe, PostTile, RouterLink],
+  imports: [AsyncPipe, PostTile, RouterLink, Sidebar],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.css',
 })

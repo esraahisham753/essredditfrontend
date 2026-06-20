@@ -9,9 +9,24 @@
   background: linear-gradient(180deg, #f8fafc 0%, #fdf2f8 100%);
 }
 
-.view-post-shell {
-  max-width: 820px;
+/* ── Layout: sidebar + content ───────────────────────────────── */
+
+.view-post-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  align-items: start;
+  max-width: 1120px;
   margin: 0 auto;
+}
+
+.sidebar-column {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.view-post-shell {
+  min-width: 0;
   display: grid;
   gap: 1.75rem;
 }
@@ -163,6 +178,24 @@
 }
 
 /* ── Responsive ──────────────────────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .view-post-container {
+    grid-template-columns: 240px 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .view-post-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sidebar-column {
+    position: static;
+  }
+}
 
 @media (max-width: 640px) {
   .view-post-page {
