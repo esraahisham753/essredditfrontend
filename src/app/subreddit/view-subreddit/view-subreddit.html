@@ -1,3 +1,22 @@
 @let posts = posts$ | async;
 
-<p>view-subreddit works!</p>
+<main class="view-subreddit-page">
+  <div class="view-subreddit-shell">
+    <div class="subreddit-heading">
+      <span class="subreddit-kicker">Community</span>
+      <h1>r/{{ name() }}</h1>
+    </div>
+
+    <div class="view-subreddit-container">
+      <aside class="sidebar-column">
+        <app-sidebar></app-sidebar>
+      </aside>
+
+      <section class="post-feed-column">
+        @if (posts) {
+          <app-post-tile [posts]="posts"></app-post-tile>
+        }
+      </section>
+    </div>
+  </div>
+</main>
