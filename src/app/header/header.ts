@@ -37,6 +37,10 @@ export class Header implements OnInit, OnDestroy {
     }
   }
 
+  handleLogout() : void {
+    this.authService.logout();
+  }
+
   ngOnInit(): void {
     this.authService.isLoggedIn$
       .pipe(takeUntil(this.destroy$))

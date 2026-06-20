@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { signupRequestPayload } from '../signup/signup-request.payload';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, switchMap, tap } from 'rxjs';
@@ -6,6 +6,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { LoginRequestPayload } from '../login/login-request.payload';
 import { loginResponsePayload } from '../login/login-response.payload';
 import { RefreshTokenRequestPayload } from './refresh-token.payload';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ import { RefreshTokenRequestPayload } from './refresh-token.payload';
 export class AuthService {
   private loggedInSubject: BehaviorSubject<boolean>;
   private usernameSubject: BehaviorSubject<String | null>;
+  private toastr = Inject(ToastrService);
   
   public isLoggedIn$: Observable<boolean>;
   public username$: Observable<String | null>;
@@ -82,7 +84,21 @@ export class AuthService {
     return this.localStorage.retrieve("refreshToken");
   }
 
-  logout() {
+  logout() : void {
+    const logoutPayload: RefreshTokenRequestPayload = {
+      refreshToken: this.getRefreshToken(),
+      username: this.getUsername()
+    }
 
+    this.httpClient.post<String>("http://localhost:8080/api/auth/logout", logoutPayload)
+    .subscribe({
+      next: data => console.log(data),
+      error: err => this.toastr.error("Something went wrong during logout, try again later.", err)
+    });
+
+    this.localStorage.clear("authenticationtoken");
+    this.localStorage.clear("expiresat");
+    this.localStorage.clear("refreshtoken");
+    this.localStorage.clear("username");
   }
 }
