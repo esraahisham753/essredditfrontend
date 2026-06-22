@@ -11,9 +11,9 @@
     </a>
 
     <div class="header-links" aria-label="Main links">
-      <a href="#">Explore</a>
       <a [routerLink]="'/subreddits'">Communities</a>
-      <a href="#">Trending</a>
+      <a [routerLink]="['/create-post']">Create Post</a>
+      <a [routerLink]="['/create-subreddit']">Create Subreddit</a>
     </div>
 
     @if (!isLoggedIn) {

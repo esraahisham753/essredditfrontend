@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostModel } from '../PostType';
 import { SafeHTMLPipe } from '../SafeHTMLPipe';
 import { PostVote } from "../post-vote/post-vote";

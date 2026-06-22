@@ -350,3 +350,14 @@
   font-weight: 900;
   vertical-align: text-bottom;
 }
+
+.post-description img {
+  display: block;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0.75rem auto;
+  border-radius: 0.85rem;
+  object-fit: contain;
+  max-height: 70vh !important;
+  width: auto !important;
+}

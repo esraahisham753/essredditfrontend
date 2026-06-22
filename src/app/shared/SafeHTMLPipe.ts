@@ -18,7 +18,18 @@ export class SafeHTMLPipe implements PipeTransform {
         }
     }
 
+    stripImageDimensions(html: String): String {
+        return html.replace(/<img\b[^>]*>/gi, imgTag => {
+            imgTag.replace(/\swidth="[^"]*"/gi, " ");
+            imgTag.replace(/\sheight="[^"]*"/gi, " ");
+            imgTag.replace(/\sstyle="[^"]*"/gi, " ");
+
+            return imgTag;
+        });
+    }
+
     transform(value: String): SafeHtml {
+        value = this.stripImageDimensions(value);
         let cleanHTML = this.purifier.sanitize("" + value);
 
         if (typeof window !== "undefined") {

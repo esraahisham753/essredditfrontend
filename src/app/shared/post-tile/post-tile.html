@@ -8,7 +8,7 @@
       <div class="post-body">
         <div class="post-meta">
           <a [routerLink]="['/subreddits', post.subredditName]" class="subreddit">r/{{ post.subredditName }}</a>
-          <span class="post-author">Posted by {{ post.username }}</span>
+          <span class="post-author">Posted by <a class="username-link" [routerLink]="['/users', post.username]">{{ post.username }}</a></span>
           <span class="post-duration">{{ post.duration }}</span>
         </div>
 
